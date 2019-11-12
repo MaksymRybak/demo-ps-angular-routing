@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Product } from '../product';
-
 @Component({
   templateUrl: './product-edit-tags.component.html'
 })
