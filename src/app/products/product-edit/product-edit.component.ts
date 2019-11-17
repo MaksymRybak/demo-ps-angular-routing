@@ -15,6 +15,7 @@ export class ProductEditComponent implements OnInit {
   errorMessage: string;
 
   product: Product;
+  private dataIsValid: { [ key: string ]: boolean } = {};
 
   constructor(private productService: ProductService,
               private messageService: MessageService,
@@ -26,7 +27,7 @@ export class ProductEditComponent implements OnInit {
       data => {
           const resolvedData: ProductResolved = data['resolvedData'];
           this.errorMessage = data['error'];
-          this.onProductRetrieved(data['product']);
+          this.onProductRetrieved(data['product'].product);
         });
   }
 
@@ -90,5 +91,37 @@ export class ProductEditComponent implements OnInit {
 
     // Navigate back to the product list
     this.router.navigate(['/products']);
+  }
+
+  isValid(path?: string): boolean {
+    this.validate();
+
+    if (path) {
+      return this.dataIsValid[path];
+    }
+
+    return (this.dataIsValid && Object.keys(this.dataIsValid).every(d => this.dataIsValid[d] === true));
+  }
+
+  validate(): void {
+    this.dataIsValid = {};
+
+    // validate info
+    if (this.product.productName &&
+        this.product.productName.length >= 3 &&
+        this.product.productCode) {
+          this.dataIsValid['info'] = true;
+      } else {
+        this.dataIsValid['info'] = false;
+      }
+
+    // validate tags
+    if (this.product.category &&
+        this.product.category.length >= 3) {
+          this.dataIsValid['tag'] = true;
+      } else {
+        this.dataIsValid['tag'] = false;
+      }
+
   }
 }

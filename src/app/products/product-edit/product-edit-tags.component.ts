@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Product } from '../product';
 
 @Component({
   templateUrl: './product-edit-tags.component.html'
@@ -7,11 +8,14 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductEditTagsComponent implements OnInit {
   errorMessage: string;
   newTags = '';
-  product = { id: 1, category: 'test', tags: ['test'] };
+  product: Product;
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.parent.data.subscribe(data => {
+      this.product = data['product'].product;
+    });
   }
 
   // Add the defined tags
