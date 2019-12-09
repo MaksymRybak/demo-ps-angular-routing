@@ -33,7 +33,8 @@
       <a class="nav-link">Welcome {{ userName }}</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link">Show Messages</a>
+      <a class="nav-link"
+        [routerLink]="[{ outlets: { popup: ['messages'] }}]">Show Messages</a>
     </li>
     <li class="nav-item" *ngIf="!isLoggedIn">
       <a class="nav-link" [routerLink]="['/login']"> Log In</a>

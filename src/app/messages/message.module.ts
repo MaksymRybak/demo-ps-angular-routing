@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
     SharedModule,
     RouterModule.forChild([
       {
-        path: 'message',
+        path: 'messages',
         component: MessageComponent,
         outlet: 'popup'
       }
